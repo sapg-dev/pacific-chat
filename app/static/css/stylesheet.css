@@ -5,7 +5,7 @@ body, html {
     height: 100%;
     font-family: Arial, sans-serif;
      color: lightgrey;
-     background-color: lightgrey;
+     background-color: black;
 
 }
 
@@ -18,8 +18,8 @@ body {
 
 /* Header styles */
 h1 {
-    background-color: white;
-    color: green;
+    background-color: #232629;
+    color: white;
     padding: 10px;
     text-align: center;
     margin-bottom: 0;
@@ -27,6 +27,7 @@ h1 {
     top: 0px;
     margin-top: 0px;
     border-radius: 10px;
+    font-family: Consolas, monospace;
 }
 
 /* Chat area styling */
@@ -38,6 +39,9 @@ textarea#chat {
     border: none;
     border-radius: 5px;
     resize: none;
+    color: white; /* Changed text color to white */
+    background-color: black; /* Changed background color to black */
+    font-family: Consolas, monospace;
 }
 
 /* Message input field styling */
@@ -47,7 +51,8 @@ input#text {
     margin: 10px;
     border: none;
     border-radius: 5px;
-    color: green;
+    background-color: #232629;
+    color: white;
 }
 
 /* "Leave this room" link styling */
@@ -93,3 +98,6 @@ form input[type="submit"] {
 form input[type="submit"]:hover {
     background-color: #555;
 }
+
+
+

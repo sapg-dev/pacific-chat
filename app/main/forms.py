@@ -11,7 +11,7 @@ class LoginForm(FlaskForm):
     room = SelectField('Room', choices=room_choices, validators=[DataRequired()])
 
 
-    agree_to_terms = BooleanField('I agree to the terms and conditions', validators=[DataRequired()])
+    
     
     submit = SubmitField('Enter Chatroom')
 

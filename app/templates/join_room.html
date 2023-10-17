@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Room</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/create.css') }}" type="text/css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Display Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        
+        <h2>Join a Room</h2>
+        <form action="{{ url_for('main.join_room') }}" method="post"> <!-- Updated this line -->
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+
+            <label for="room_id">Room ID:</label>
+            <input type="text" id="room_id" name="room_id" required><br><br>
+            
+            <input type="submit" value="Join Room">
+        </form>
+    </div>
+</body>
+
+</html>

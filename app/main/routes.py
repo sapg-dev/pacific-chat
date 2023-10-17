@@ -4,7 +4,12 @@ from . import main
 from .forms import LoginForm
 active_chat_rooms = {}
 import random;
-@main.route('/', methods=['GET', 'POST'])
+import uuid
+
+
+active_rooms = {}
+
+@main.route('/index', methods=['GET', 'POST'])
 def index():
     form = LoginForm()
 
@@ -21,10 +26,7 @@ def index():
             session['current_room'] = room_name
 
         # Check if the agreement checkbox is checked
-        if form.agree_to_terms.data:
-            return redirect(url_for('.chat', room_name=room_name))
-        else:
-            flash('Please agree to the terms and conditions.', 'warning')
+     
 
     elif request.method == 'GET':
         form.name.data = session.get('name', '')
@@ -36,19 +38,44 @@ def index():
 
 
 
-@main.route('/chat/<room_name>')
-def chat(room_name):
+@main.route('/chat/<room_id>')
+def chat(room_id):
     name = session.get('name', '')
-    current_room = session.get('current_room', '')
-
-    if name == '' or room_name == '':
-        return redirect(url_for('.index'))
-
-    if current_room != room_name:
-        flash('You are not authorized to enter this room.', 'danger')
-        return redirect(url_for('.index'))
-
-    return render_template('chat.html', name=name, room=room_name)
+    if not name or not room_id:
+        flash('Please create a room first.', 'warning')
+        return redirect(url_for('.create_room'))
+    return render_template('chat.html', name=name, room_id=room_id)
 
 
+@main.route('/', methods=['GET'])
+def landing():
+    return render_template('landing.html')
 
+
+
+
+
+
+@main.route('/create_room', methods=['GET', 'POST'])
+def create_room():
+    if request.method == 'POST':
+        name = request.form['name']
+        room_id = str(uuid.uuid4())
+        active_rooms[room_id] = {'name': name}  # Add room to active_rooms dictionary
+        session['name'] = name
+        session['room_id'] = room_id
+        return redirect(url_for('.chat', room_id=room_id))
+    return render_template('create_room.html')
+
+
+@main.route('/join_room', methods=['GET', 'POST'])
+def join_room():
+    if request.method == 'POST':
+        name = request.form['name']
+        room_id = request.form['room_id']
+        if room_id not in active_rooms:
+            flash('The room does not exist.', 'warning')
+            return redirect(url_for('join_room'))
+        session['name'] = name
+        return redirect(url_for('.chat', room_id=room_id))
+    return render_template('join_room.html')
