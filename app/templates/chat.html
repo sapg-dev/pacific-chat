@@ -40,11 +40,29 @@
                 });
             }
         </script>
+
+
     </head>
     <body>
-        <h1>P-Chat: {{ room_id }}</h1>
+        
+            <h1>Chat-ID: {{ room_id }}</h1>
+            <button id="shareBtn">Copy to Clipboard</button>
+        
         <textarea id="chat" cols="80" rows="20"></textarea><br><br>
         <input id="text" size="80" placeholder="Enter your message here"><br><br>
         <a href="#" onclick="leave_room();">Purge room</a>
+
+        <script>
+            document.getElementById('shareBtn').addEventListener('click', function() {
+                const textArea = document.createElement('textarea');
+                textArea.value = '{{ room_id }}';
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Chat-ID copied to clipboard!');
+            });
+            </script>
+            
     </body>
 </html>

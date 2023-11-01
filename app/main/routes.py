@@ -1,13 +1,15 @@
 from flask import session, redirect, url_for, render_template, request, flash
 
+from extensions import db   # Import db and app from chat.py
+from models import Room, ChatRoom, Participant  # Import models
 from . import main
 from .forms import LoginForm
-active_chat_rooms = {}
+
 import random;
 import uuid
 
 
-active_rooms = {}
+
 
 @main.route('/index', methods=['GET', 'POST'])
 def index():
@@ -61,7 +63,17 @@ def create_room():
     if request.method == 'POST':
         name = request.form['name']
         room_id = str(uuid.uuid4())
-        active_rooms[room_id] = {'name': name}  # Add room to active_rooms dictionary
+        
+        # Create a new room entry and add to the database
+        new_room = Room(id=room_id)
+        db.session.add(new_room)
+        db.session.commit()
+
+        # Create a new participant entry and add to the database
+        new_participant = Participant(name=name, room_id=new_room.id)
+        db.session.add(new_participant)
+        db.session.commit()
+
         session['name'] = name
         session['room_id'] = room_id
         return redirect(url_for('.chat', room_id=room_id))
@@ -73,9 +85,18 @@ def join_room():
     if request.method == 'POST':
         name = request.form['name']
         room_id = request.form['room_id']
-        if room_id not in active_rooms:
+
+        # Check if the room exists in the database
+        room = Room.query.filter_by(id=room_id).first()
+        if not room:
             flash('The room does not exist.', 'warning')
             return redirect(url_for('join_room'))
+
+        # Add the user as a participant for that room
+        new_participant = Participant(name=name, room_id=room.id)
+        db.session.add(new_participant)
+        db.session.commit()
+
         session['name'] = name
         return redirect(url_for('.chat', room_id=room_id))
     return render_template('join_room.html')

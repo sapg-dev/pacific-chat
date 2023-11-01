@@ -15,9 +15,36 @@
         <form action="{{ url_for('.create_room') }}" method="post">
             <label for="name">Your Name:</label>
             <input type="text" id="name" name="name" required><br><br>
-            <input type="submit" value="Create Room">
+
+            <div class="checkbox-container">
+                <label for="terms">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    I agree to the <a href="/terms_and_conditions">Terms and Conditions</a>.
+                </label>
+            </div>
+            <input type="submit" value="Create Room" id="createRoomBtn" disabled>
+     
         </form>
+
     </div>
+
+    <script>
+        // Get references to the checkbox and the button
+        const termsCheckbox = document.getElementById('terms');
+        const createRoomBtn = document.getElementById('createRoomBtn');
+    
+        // Add an event listener to the checkbox
+        termsCheckbox.addEventListener('change', function() {
+            if (termsCheckbox.checked) {
+                // If the checkbox is checked, enable the button
+                createRoomBtn.removeAttribute('disabled');
+            } else {
+                // If the checkbox is unchecked, disable the button
+                createRoomBtn.setAttribute('disabled', 'true');
+            }
+        });
+    </script>
+ 
 </body>
 
 </html>

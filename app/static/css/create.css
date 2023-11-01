@@ -72,3 +72,55 @@ input[type="submit"]:hover {
     margin-bottom: 20px;
     border-radius: 5px;
 }
+
+
+/* Checkbox styling */
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+/* Label styling for the checkbox */
+label[for="terms"] {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* Style the terms and conditions link */
+label[for="terms"] a {
+    color: #007BFF; /* Blue color for the link */
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+label[for="terms"] a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+
+.checkbox-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+   
+      /* 100% of the viewport height */
+      /* 100% of the viewport width */
+}
+
+input[type="submit"] {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    /* ... any other styles you have for the button ... */
+}
+
+/* Style for the disabled button */
+input[type="submit"][disabled] {
+    background-color: #888;
+    color: #ccc;
+    cursor: not-allowed;
+}
