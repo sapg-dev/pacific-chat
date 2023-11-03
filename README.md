@@ -1,6 +1,6 @@
 # Pacific Chat
 
-**Pacific Chat** is a real-time messaging application built with Python and Flask, offering a seamless chatting experience. Users can create rooms, join existing ones, and communicate instantly with others.
+**Unfortunately Pacific chat cannot work on its current hosting program. Due to cost issues, Pacific Chat does not work on its current hosting plan. In the future I will update Pacific Chat to be a fully working app. Pacific Chat** is a real-time messaging application built with Python and Flask, offering a seamless chatting experience. Users can create rooms, join existing ones, and communicate instantly with others.
 
 ## Features
 
